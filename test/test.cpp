@@ -9,12 +9,13 @@ int main(void)
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
         GLFWwindow *window = glfwCreateWindow(800, 600, "ezi - test", nullptr, nullptr);
-        
+
         // this is needed in order to setup the callbacks in ezi:
         glfwSetWindowUserPointer(window, nullptr);
 
         // instatiate ezi:
-        ezi::Input input{window};
+        ezi::Input input{};
+        input.init(window);
 
         // add a Lambda listener to the "key_down" event:
         input.addListener("key_down", [](int key, int mods)
@@ -102,7 +103,8 @@ int main(void)
     }
     else
     {
-        std::cout << "could not initialize GLFW!\n" << std::endl;
+        std::cout << "could not initialize GLFW!\n"
+                  << std::endl;
     }
 
     return 0;

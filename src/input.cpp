@@ -28,7 +28,11 @@
 
 namespace ezi
 {
-    Input::Input(GLFWwindow *window) : EventEmitter()
+    Input::Input() : EventEmitter() {}
+
+    Input::~Input() {}
+
+    void Input::init(GLFWwindow *window)
     {
         glfwSetWindowUserPointer(window, this);
         glfwSetKeyCallback(window, &Input::_keyCallback);
@@ -36,8 +40,6 @@ namespace ezi
         glfwSetScrollCallback(window, &Input::_mouseWheelCallback);
         glfwSetCursorPosCallback(window, &Input::_mousePositionCallback);
     }
-
-    Input::~Input() {}
 
     void Input::_keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
     {

@@ -36,8 +36,10 @@ namespace ezi
     class Input : public EventEmitter
     {
     public:
-        Input(GLFWwindow *window);
+        Input();
         ~Input();
+
+        void init(GLFWwindow *window);
 
         bool isKeyDown(int key) { return keyDown[key]; }
         bool isMouseButtonDown(int button) { return buttonDown[button]; }
