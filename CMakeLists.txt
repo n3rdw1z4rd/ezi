@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.14.0)
-project(ezi VERSION 0.1.0)
+project(ezi VERSION 0.2.0)
 
 include(FetchContent)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++17 -O2")
+add_definitions(-DPROJECT_NAME="${PROJECT_NAME}")
+add_definitions(-DPROJECT_VERSION="${VERSION}")
 
 FetchContent_Declare(glfw
     GIT_REPOSITORY https://github.com/glfw/glfw.git
