@@ -105,6 +105,8 @@ namespace ezi
         template <typename... Args>
         void emit(const std::string &name, Args... args)
         {
+            // std::cout << "EventEmitter: emit: " << name << std::endl;
+            
             std::list<std::shared_ptr<Listener<Args...>>> handlers;
             auto range = listeners.equal_range(name);
             handlers.resize(std::distance(range.first, range.second));

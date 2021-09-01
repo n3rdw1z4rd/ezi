@@ -42,9 +42,11 @@ namespace ezi
         void init(GLFWwindow *window);
 
         bool isKeyDown(int key) { return keyDown[key]; }
-        bool isMouseButtonDown(int button) { return buttonDown[button]; }
+        bool isMouseButtonDown(int button) { return mouseButtonDown[button]; }
         glm::vec2 getMousePosition() { return mousePosition; }
         glm::vec2 getMousePositionOffset() { return mousePositionOffset; }
+
+        void poll();
 
     private:
         static void _keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
@@ -62,8 +64,11 @@ namespace ezi
         bool keyDown[GLFW_KEY_LAST + 1] = {false};
         long long keyDownTime[GLFW_KEY_LAST + 1] = {0};
 
-        bool buttonDown[GLFW_MOUSE_BUTTON_LAST + 1] = {false};
-        long long buttonDownTime[GLFW_MOUSE_BUTTON_LAST + 1] = {0};
+        bool mouseButtonDown[GLFW_MOUSE_BUTTON_LAST + 1] = {false};
+        long long mouseButtonDownTime[GLFW_MOUSE_BUTTON_LAST + 1] = {0};
+
+        bool gamepadButtonDown[GLFW_GAMEPAD_BUTTON_LAST + 1] = {false};
+        long long gamepadButtonDownTime[GLFW_GAMEPAD_BUTTON_LAST + 1] = {0};
 
         glm::vec2 mousePosition{0.f};
         glm::vec2 mousePositionOffset{0.f};

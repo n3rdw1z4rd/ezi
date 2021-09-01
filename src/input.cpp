@@ -25,6 +25,7 @@
 #include "input.hpp"
 
 #include <chrono>
+#include <iostream>
 
 namespace ezi
 {
@@ -35,10 +36,27 @@ namespace ezi
     void Input::init(GLFWwindow *window)
     {
         glfwSetWindowUserPointer(window, this);
+
         glfwSetKeyCallback(window, &Input::_keyCallback);
         glfwSetMouseButtonCallback(window, &Input::_mouseButtonCallback);
         glfwSetScrollCallback(window, &Input::_mouseWheelCallback);
         glfwSetCursorPosCallback(window, &Input::_mousePositionCallback);
+        
+        // for (int i = GLFW_JOYSTICK_1; i < GLFW_JOYSTICK_LAST; i++)
+        // {
+        //     if (glfwJoystickPresent(i))
+        //     {
+        //         glfwSetJoystickUserPointer(i, this);
+        //     }
+        // }
+
+        // glfwSetJoystickCallback([](int id, int event) {
+        //     if (event == GLFW_CONNECTED)
+        //     {
+        //         Input *ptr = static_cast<Input *>(glfwGetJoystickUserPointer(id));
+        //         glfwSetJoystickUserPointer(id, ptr);
+        //     }
+        // });
     }
 
     void Input::_keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
@@ -66,6 +84,10 @@ namespace ezi
         return std::chrono::duration_cast<std::chrono::milliseconds>(
                    std::chrono::system_clock::now().time_since_epoch())
             .count();
+    }
+
+    void Input::poll() {
+        
     }
 
     void Input::_onKeyboardEvent(int key, int scancode, int action, int mods)
@@ -102,16 +124,16 @@ namespace ezi
 
         if (action == GLFW_PRESS)
         {
-            buttonDown[button] = true;
-            buttonDownTime[button] = now;
+            mouseButtonDown[button] = true;
+            mouseButtonDownTime[button] = now;
 
             emit("button_down", button, mods);
         }
         else if (action == GLFW_RELEASE)
         {
-            buttonDown[button] = false;
+            mouseButtonDown[button] = false;
 
-            if (now - buttonDownTime[button] < downTimeThreshold)
+            if (now - mouseButtonDownTime[button] < downTimeThreshold)
             {
                 emit("button_clicked", button, mods);
             }
@@ -120,7 +142,7 @@ namespace ezi
                 emit("button_up", button, mods);
             }
 
-            buttonDownTime[button] = 0;
+            mouseButtonDownTime[button] = 0;
         }
     }
 
